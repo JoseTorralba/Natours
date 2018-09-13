@@ -1,0 +1,73 @@
+.row {
+    // 1140px divided by 10 is 114rem
+    max-width: $grid-width;
+    margin: 0 auto;
+
+    // .row:not()
+    &:not(:last-child) {
+        // removes margin from bottom of row container
+        // if this is added on .row it'll show
+        margin-bottom: $gutter-vertical;
+
+        @include respond(tablet-portrait) {
+            margin-bottom: $gutter-vertical-small;
+        }
+    }
+
+    @include respond(tablet-portrait) {
+        // for row width
+        max-width: 50rem;
+        // gives padding to the rows
+        padding: 0 3rem;
+    }
+
+    @include clearfix;
+
+    // ^ gets the first thing from a row or something instead of writing out col-1-of
+    [class^= "col-"] {
+
+        //using a float removes the height of the row, clearfix fixes it
+        float: left;
+
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+
+            // removes margin right from above
+            @include respond(tablet-portrait) {
+                margin-right: 0;
+
+                // needs a bottom margin because they are too close
+                margin-bottom: $gutter-vertical-small;
+            }
+        }
+
+        @include respond(tablet-portrait) {
+            width: 100% !important;
+        }
+    }
+
+    .col-1-of-2 {
+        // to use a variable in calc must put a hashtag then curly braces
+        width: calc((100% - #{$gutter-horizontal}) / 2);   
+    }
+
+    .col-1-of-3 {
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+    }
+
+    .col-2-of-3 {
+        width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    }
+
+    .col-2-of-4 {
+        width: calc(2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+    }
+
+    .col-3-of-4 {
+        width: calc(3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal});
+    }
+}
